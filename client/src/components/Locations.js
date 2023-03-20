@@ -21,7 +21,12 @@ export const Locations = () => {
 
   return (
   <div id="root">
-    
+    <h1>Locations</h1>
+    {locations.map(location => (
+      <div key={location.name}>
+        <button>{location.name}</button>
+      </div>
+    ))}
   </div>
   );
 };

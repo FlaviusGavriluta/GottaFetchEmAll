@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { NoPokemonFound } from "./NoPokemonFound";
+import { PokemonFound } from "./PokemonFound";
 
-export const PokemonData = ({ locationUrl }) => {
+
+export const PokemonData = ({ locationUrl, setEncounterEnded }) => {
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
@@ -25,11 +28,18 @@ export const PokemonData = ({ locationUrl }) => {
           setPokemon(pokemonData);
         } else {
           setPokemon(null);
+          setEncounterEnded(true);
         }
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
-  }, [locationUrl]);
+  }, [locationUrl, setEncounterEnded]);
+
+  return pokemon ? (
+    <PokemonFound pokemon={pokemon} onEncounterEnd={setEncounterEnded} />
+  ) : (
+    <NoPokemonFound onTryAnotherLocation={setEncounterEnded} />
+  );
 };

@@ -4,13 +4,28 @@ import { PokemonData } from "./components/PokemonData";
 
 const App = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [encounterEnded, setEncounterEnded] = useState(true);
 
-  const handleLocationSelect = (location) => setSelectedLocation(location);
+  const handleLocationSelect = (location) => {
+    setSelectedLocation(location);
+    setEncounterEnded(false);
+  };
+
+  const handleEncounterEnd = () => {
+    setSelectedLocation(null);
+    setEncounterEnded(true);
+  };
 
   return (
     <div>
-      <PokemonData locationUrl={selectedLocation} />
-      <Locations onSelect={handleLocationSelect} />
+      {encounterEnded ? (
+        <Locations onSelect={handleLocationSelect} />
+      ) : (
+        <PokemonData
+          locationUrl={selectedLocation}
+          setEncounterEnded={handleEncounterEnd}
+        />
+      )}
     </div>
   );
 };

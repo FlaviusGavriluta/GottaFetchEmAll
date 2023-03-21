@@ -21,11 +21,7 @@ export const Locations = ({ onSelect }) => {
       <h1>Locations</h1>
       {locations.map((location) => (
         <div key={location.name}>
-          <button
-            onClick={() => {
-              return onSelect(location.url);
-            }}
-          >
+          <button onClick={() => onSelect(location.url)}>
             {location.name}
           </button>
         </div>

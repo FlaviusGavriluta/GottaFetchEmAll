@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-export const PokemonFound = ({ pokemon, onEncounterEnd }) => {
+export const PokemonFound = ({ pokemon, ourPokemons, onEncounterEnd }) => {
   const handleEncounterEnd = () => {
     onEncounterEnd(true);
-  }
+  };
+
+  useEffect(() => {
+    console.log(ourPokemons);
+  }, []);
 
   return (
     <div>

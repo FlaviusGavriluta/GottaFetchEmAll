@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Locations } from "./components/Locations";
 import { PokemonData } from "./components/PokemonData";
 

@@ -2,27 +2,31 @@ import React, { useEffect, useState } from "react";
 import { NoPokemonFound } from "./NoPokemonFound";
 import { PokemonFound } from "./PokemonFound";
 
+// starting pokemons
+const usersPokemon = [
+  "https://pokeapi.co/api/v2/pokemon/bulbasaur",
+  "https://pokeapi.co/api/v2/pokemon/charizard",
+  "https://pokeapi.co/api/v2/pokemon/poliwhirl",
+];
+
 export const PokemonData = ({ locationUrl, setEncounterEnded }) => {
   const [pokemon, setPokemon] = useState(null);
   const [ourPokemons, setOurPokemons] = useState(null);
-
-  // starting pokemons
-  const usersPokemon = [
-    "https://pokeapi.co/api/v2/pokemon/bulbasaur",
-    "https://pokeapi.co/api/v2/pokemon/charizard",
-    "https://pokeapi.co/api/v2/pokemon/poliwhirl",
-  ];
+  const [opponentUrl, setOpponentUrl] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // set user's pokemons
         let usersPokemons = [];
         usersPokemon.map(async (pokeApi) => {
           const pokeApiResponse = await fetch(pokeApi);
           const pokeApiData = await pokeApiResponse.json();
           usersPokemons.push(pokeApiData);
         });
-        setOurPokemons(usersPokemons)
+        setOurPokemons(usersPokemons);
+
+        // set the adversary pokemon
         const locationResponse = await fetch(locationUrl);
         const locationData = await locationResponse.json();
         const areas = locationData.areas;
@@ -37,6 +41,7 @@ export const PokemonData = ({ locationUrl, setEncounterEnded }) => {
           );
           const pokemonUrl =
             pokemonEncounters[randomIndexOfPokemons].pokemon.url;
+          setOpponentUrl(pokemonUrl);
           const pokemonResponse = await fetch(pokemonUrl);
           const pokemonData = await pokemonResponse.json();
           setPokemon(pokemonData);
@@ -59,7 +64,13 @@ export const PokemonData = ({ locationUrl, setEncounterEnded }) => {
       {pokemon === null || pokemon === "none" ? (
         <NoPokemonFound onTryAnotherLocation={handleEncounterEnd} />
       ) : (
-        <PokemonFound pokemon={pokemon} ourPokemons={ourPokemons} onEncounterEnd={handleEncounterEnd} />
+        <PokemonFound
+          pokemon={pokemon}
+          usersPokemon={usersPokemon}
+          opponentUrl={opponentUrl}
+          ourPokemons={ourPokemons}
+          onEncounterEnd={handleEncounterEnd}
+        />
       )}
     </div>
   );

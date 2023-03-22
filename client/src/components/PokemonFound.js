@@ -1,54 +1,53 @@
 import React, { useState } from "react";
-let index = null;
-export const PokemonFound = ({ pokemon, ourPokemons, onEncounterEnd }) => {
+import { Battle } from "./Battle";
 
-  const [isClicked, setIsClicked] = useState(false)
+let index = null;
+
+export const PokemonFound = ({ pokemon, usersPokemon, opponentUrl, ourPokemons, onEncounterEnd }) => {
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleEncounterEnd = () => {
     onEncounterEnd(true);
   };
 
-
   const choosePokemon = (id) => {
     index = id;
-    setIsClicked(true)
-
-  }
-
+    setIsClicked(true);
+  };
 
   return (
     <div>
       {isClicked ? (
+        <Battle
+          myPokemon={ourPokemons[index]}
+          opponent={pokemon}
+          encounterEnd={handleEncounterEnd}
+          ourPokemons={ourPokemons}
+          usersPokemon={usersPokemon}
+          opponentUrl={opponentUrl}
+        />
+      ) : (
         <div>
-          <h2>Your Pokemon</h2>
-          <h4>{ourPokemons[index].name}</h4>
-          <div><img src={ourPokemons[index].sprites.front_default} alt={ourPokemons[index].name} /></div>
-        </div>
-      )
-        :
-
-        (
-          <div id='ourPokemons'>
-            <h2>Choose your pokemon!</h2>
+          <div id="ourPokemons">
+            <h2>Choose your pokemon:</h2>
 
             {ourPokemons.map((ourPoke, i) => (
               <div key={i}>
                 <h4>{ourPoke.name}!</h4>
-                <button onClick={() => choosePokemon(i)}><img src={ourPoke.sprites.front_default} alt={ourPoke.name}  /></button>
+                <button onClick={() => choosePokemon(i)}>
+                  <img src={ourPoke.sprites.front_default} alt={ourPoke.name} />
+                </button>
               </div>
-
             ))}
           </div>
-        )}
-
-      <div id='opponent'>
-        <h2>You opponent</h2>
-        <h4>{pokemon.name}</h4>
-        <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-        <button onClick={handleEncounterEnd}>End encounter</button>
-      </div>
-
-
+          <div id="opponent">
+            <h2>Your opponent is:</h2>
+            <h4>{pokemon.name}</h4>
+            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+            <button onClick={handleEncounterEnd}>End encounter</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

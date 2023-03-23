@@ -3,7 +3,13 @@ import { Battle } from "./Battle";
 
 let index = null;
 
-export const PokemonFound = ({ pokemon, usersPokemon, opponentUrl, ourPokemons, onEncounterEnd }) => {
+export const PokemonFound = ({
+  pokemon,
+  usersPokemon,
+  opponentUrl,
+  ourPokemons,
+  onEncounterEnd,
+}) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleEncounterEnd = () => {
@@ -28,40 +34,40 @@ export const PokemonFound = ({ pokemon, usersPokemon, opponentUrl, ourPokemons, 
       ) : (
         <div>
           <div id="ourPokemons">
-            <h2>Choose your pokemon:</h2>
-
-            {ourPokemons.map((ourPoke, i) => (
-              <div key={i}>
-                <h4>{ourPoke.name}!</h4>
-                <button onClick={() => choosePokemon(i)}>
-                  <img src={ourPoke.sprites.front_default} alt={ourPoke.name} />
-                </button>
+            <div className="container text-center">
+              <h2>Choose your pokemon:</h2>
+              <div className="row justify-content-md-center mb-5 pb-5">
+                {ourPokemons.map((ourPoke, i) => (
+                  <div key={i} className="col-md-auto">
+                    <h4>{ourPoke.name}!</h4>
+                    <button onClick={() => choosePokemon(i)}>
+                      <img
+                        src={ourPoke.sprites.front_default}
+                        alt={ourPoke.name}
+                      />
+                    </button>
+                  </div>
+                ))}
               </div>
-            ))}
+              <h2>Your opponent is:</h2>
+              <div className="row justify-content-md-center">
+                <div id="opponent" className="col-md-auto">
+                  <h4>{pokemon.name}</h4>
+                  <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="opponent">
-            <h2>Your opponent is:</h2>
-            <h4>{pokemon.name}</h4>
-            <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-            <button onClick={handleEncounterEnd}>End encounter</button>
+          <div className="row justify-content-md-center">
+            <button
+              className="btn btn-success w-auto"
+              onClick={handleEncounterEnd}
+            >
+              End encounter
+            </button>
           </div>
         </div>
       )}
     </div>
   );
 };
-
-// i=0 sau i = 2
-
-// while ( hp > 0 && hp2 > 0)  {
-//     if ( i%2 == 0 ) {
-//         hp2 = hp2 - atk1
-//      console.log(hp2)
-//         i++;
-//     } else {
-//       hp = hp - atk2
-//    console.log(hp)
-//       i++
-//     }
-
-// }

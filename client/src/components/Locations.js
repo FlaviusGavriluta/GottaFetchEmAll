@@ -18,14 +18,21 @@ export const Locations = ({ onSelect }) => {
 
   return (
     <div id="root">
-      <h1>Locations</h1>
-      {locations.map((location) => (
-        <div key={location.name}>
-          <button onClick={() => onSelect(location.url)}>
-            {location.name}
-          </button>
+      <div className="container text-center">
+        <h1>Choose a location:</h1>
+        <div className="row justify-content-md-center">
+          {locations.map((location) => (
+            <div key={location.name} className="col-md-auto m-3">
+              <button
+                className="btn btn-primary"
+                onClick={() => onSelect(location.url)}
+              >
+                {location.name.charAt(0).toUpperCase() + location.name.slice(1)}
+              </button>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 };

@@ -64,15 +64,19 @@ export const Battle = ({
       {battleEnded ? (
         <div>
           {win ? (
-            <div className="container text-center">
+            <div className="container text-center mt-5">
               <div className="row justify-content-md-center">
                 <div className="col-md-auto">
                   <h1>You won!</h1>
                   <h2>You have captured:</h2>
-                  <h4>{opponent.name}</h4>
+                  <h4>
+                    {opponent.name.charAt(0).toUpperCase() +
+                      opponent.name.slice(1)}
+                  </h4>
                   <div>
                     <img
                       src={opponent.sprites.front_default}
+                      // src={opponent.sprites.other.home.front_shiny}
                       alt={opponent.name}
                     />
                   </div>
@@ -80,9 +84,11 @@ export const Battle = ({
               </div>
             </div>
           ) : (
-            <div className="container text-center">
+            <div className="container text-center mt-5">
               <div className="row justify-content-md-center">
-                <div className="col-md-auto"><h1>You lost the battle!</h1></div>
+                <div className="col-md-auto">
+                  <h1>You lost the battle!</h1>
+                </div>
               </div>
             </div>
           )}
@@ -90,10 +96,21 @@ export const Battle = ({
           <div class="row justify-content-md-center">
             <div class="col-md-auto mt-5 pt-5">
               <button
-                className="btn btn-danger w-auto"
+                className="btn btn-info w-auto"
                 onClick={handleEncounterEnd}
               >
-                End encounter
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-skip-backward-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                  <path d="M11.729 5.055a.5.5 0 0 0-.52.038L8.5 7.028V5.5a.5.5 0 0 0-.79-.407L5 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407V8.972l2.71 1.935A.5.5 0 0 0 12 10.5v-5a.5.5 0 0 0-.271-.445z" />
+                </svg>
+                &nbsp; Locations
               </button>
             </div>
           </div>
@@ -104,7 +121,10 @@ export const Battle = ({
             <div className="row justify-content-md-center">
               <div id="ourPoke" className="col-md-auto m-5 p-5">
                 <h2>Your Pokemon</h2>
-                <h4>{myPokemon.name}</h4>
+                <h4>
+                  {myPokemon.name.charAt(0).toUpperCase() +
+                    myPokemon.name.slice(1)}
+                </h4>
 
                 {startBattle ? (
                   <div
@@ -116,7 +136,7 @@ export const Battle = ({
                     aria-valuemax="100"
                   >
                     <div
-                      className="progress-bar"
+                      className="progress-bar bg-info"
                       style={{ width: `${Math.floor(displayOurHP)}%` }}
                     >
                       {Math.floor(displayOurHP)}
@@ -131,7 +151,10 @@ export const Battle = ({
                     aria-valuemin="0"
                     aria-valuemax="100"
                   >
-                    <div className="progress-bar" style={{ width: "100%" }}>
+                    <div
+                      className="progress-bar bg-info"
+                      style={{ width: "100%" }}
+                    >
                       {myPokemon.stats[0].base_stat}
                     </div>
                   </div>
@@ -140,13 +163,17 @@ export const Battle = ({
                 <div>
                   <img
                     src={myPokemon.sprites.front_default}
+                    // src={myPokemon.sprites.other.home.front_shiny}
                     alt={myPokemon.name}
                   />
                 </div>
               </div>
               <div id="opponent" class="col-md-auto m-5 p-5">
                 <h2>Your opponent</h2>
-                <h4>{opponent.name}</h4>
+                <h4>
+                  {opponent.name.charAt(0).toUpperCase() +
+                    opponent.name.slice(1)}
+                </h4>
 
                 {startBattle ? (
                   <div
@@ -158,7 +185,7 @@ export const Battle = ({
                     aria-valuemax="100"
                   >
                     <div
-                      className="progress-bar"
+                      className="progress-bar bg-info"
                       style={{ width: `${Math.floor(displayOpponentHP)}%` }}
                     >
                       {Math.floor(displayOpponentHP)}
@@ -173,7 +200,10 @@ export const Battle = ({
                     aria-valuemin="0"
                     aria-valuemax="100"
                   >
-                    <div className="progress-bar" style={{ width: "100%" }}>
+                    <div
+                      className="progress-bar bg-info"
+                      style={{ width: "100%" }}
+                    >
                       {opponent.stats[0].base_stat}
                     </div>
                   </div>
@@ -182,25 +212,43 @@ export const Battle = ({
                 <div>
                   <img
                     src={opponent.sprites.front_default}
+                    // src={opponent.sprites.other.home.front_shiny}
                     alt={opponent.name}
                   />
                 </div>
               </div>
             </div>
             <div class="row justify-content-md-center">
-              <div class="col-md-auto mt-5 pt-5">
+              <div class="col-md-auto m-5 pt-5">
                 <button className="btn btn-danger w-auto" onClick={handleHp}>
                   Start Battle
                 </button>
               </div>
             </div>
+            {/* <div class="row justify-content-md-center">
+              <div class="col-md-auto">
+              <button
+                className="btn btn-info w-auto"
+                onClick={handleEncounterEnd}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-skip-backward-circle"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                  <path d="M11.729 5.055a.5.5 0 0 0-.52.038L8.5 7.028V5.5a.5.5 0 0 0-.79-.407L5 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407V8.972l2.71 1.935A.5.5 0 0 0 12 10.5v-5a.5.5 0 0 0-.271-.445z" />
+                </svg>
+                &nbsp; Locations
+              </button>
+              </div>
+            </div> */}
           </div>
         </div>
       )}
-
-      {/* <div>
-        <button onClick={handleEncounterEnd}>End encounter</button>
-      </div> */}
     </div>
   );
 };

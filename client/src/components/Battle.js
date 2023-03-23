@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-// let ourHp = 0;
-// let opponentHp = 0;
-let i = 3;
-let timeoutID;
 
 export const Battle = ({
   myPokemon,
   opponent,
   encounterEnd,
-  ourPokemons,
   usersPokemon,
   opponentUrl,
 }) => {
@@ -17,11 +12,7 @@ export const Battle = ({
   const [win, setWin] = useState(false);
   const [displayOurHP, setDisplayOurHP] = useState(null);
   const [displayOpponentHP, setDisplayOpponentHP] = useState(null);
-  const [ourHp,setOurHp] = useState(myPokemon.stats[0].base_stat)
-  const [opponentHp,setOpponentHp] = useState(opponent.stats[0].base_stat)
-
-//   opponentHp = opponent.stats[0].base_stat;
-//   ourHp = myPokemon.stats[0].base_stat;
+  
 
   const handleEncounterEnd = () => {
     encounterEnd(true);
@@ -29,6 +20,9 @@ export const Battle = ({
 
   const handleHp = async () => {
     let playerTurn = true;
+    let opponentHp = opponent.stats[0].base_stat;
+    let ourHp = myPokemon.stats[0].base_stat;
+
     while (ourHp > 0 && opponentHp > 0) {
       if (playerTurn) {
         opponentHp -=
@@ -40,7 +34,6 @@ export const Battle = ({
           255;
         await new Promise((resolve) => setTimeout(resolve, 100));
         setDisplayOpponentHP(opponentHp);
-        setOpponentHp(opponentHp)
       } else {
         ourHp -=
           ((((2 / 5 + 2) * opponent.stats[1].base_stat * 60) /
@@ -51,9 +44,7 @@ export const Battle = ({
           255;
         await new Promise((resolve) => setTimeout(resolve, 100));
         setDisplayOurHP(ourHp);
-        setOurHp(ourHp)
       }
-
       playerTurn = !playerTurn;
       console.log(`OpponentHP: ${opponentHp}`);
       console.log(`OurHP: ${ourHp}`);
@@ -64,34 +55,12 @@ export const Battle = ({
       setWin(true);
       setBattleEnded(true);
       usersPokemon.push(opponentUrl);
-      i = 1;
     }
     if (ourHp <= 0) {
       setWin(false);
       setBattleEnded(true);
-      i = 2;
     }
   };
-
-  //   function delayTimer() {
-  //     timeoutID = setInterval(handleHp, 1000);
-  //   }
-
-  //   if (i > 2 && ourHp > 0 && opponentHp > 0) delayTimer();
-
-  //   console.log(i);
-  //   while (ourHp >= 0 && opponentHp >= 0) {
-  //     handleHp();
-  //     // if (i <= 2) break;
-
-  //     //  setTimeout(handleHp(), 3000);
-  //   }
-
-  //   if (i === 2) {
-  //     setWin(false);
-  //   } else if (i === 1) {
-  //     setWin(true);
-  //   }
 
   return (
     <div>

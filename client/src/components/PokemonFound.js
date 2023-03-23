@@ -22,7 +22,6 @@ export const PokemonFound = ({ pokemon, usersPokemon, opponentUrl, ourPokemons, 
           myPokemon={ourPokemons[index]}
           opponent={pokemon}
           encounterEnd={handleEncounterEnd}
-          ourPokemons={ourPokemons}
           usersPokemon={usersPokemon}
           opponentUrl={opponentUrl}
         />

@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { LocationButtons } from "./buttons/LocationButtons.js";
+import { PrevButton } from "./buttons/PrevButton";
+import { NextButton } from "./buttons/NextButton";
+import { CapitalizeFirstLetter } from "./functions/CapitalizeFirstLetter.js";
 
 export const Locations = ({ onSelect }) => {
   const [locations, setLocations] = useState([]);
+  const [nextPage, setNextPage] = useState(null);
+  const [prevPage, setPrevPage] = useState(null);
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -9,12 +15,38 @@ export const Locations = ({ onSelect }) => {
         const response = await fetch("https://pokeapi.co/api/v2/location/");
         const data = await response.json();
         setLocations(data.results);
+        setNextPage(data.next);
+        setPrevPage(data.previous);
       } catch (err) {
         console.log(err);
       }
     };
     fetchLocations();
   }, []);
+
+  const handleNextPage = async () => {
+    try {
+      const response = await fetch(nextPage);
+      const data = await response.json();
+      setLocations(data.results);
+      setNextPage(data.next);
+      setPrevPage(data.previous);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handlePrevPage = async () => {
+    try {
+      const response = await fetch(prevPage);
+      const data = await response.json();
+      setLocations(data.results);
+      setNextPage(data.next);
+      setPrevPage(data.previous);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div id="root">
@@ -23,26 +55,16 @@ export const Locations = ({ onSelect }) => {
         <div className="row justify-content-md-center">
           {locations.map((location) => (
             <div key={location.name} className="col-md-auto m-3">
-              <button
-                className="btn text-info"
+              <LocationButtons
+                text={CapitalizeFirstLetter(location.name)}
                 onClick={() => onSelect(location.url)}
-              >
-                {location.name.charAt(0).toUpperCase() +
-                  location.name.slice(1)}
-                &nbsp;<svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-fast-forward-circle"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14Zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16Z" />
-                  <path d="M4.271 5.055a.5.5 0 0 1 .52.038L8 7.386V5.5a.5.5 0 0 1 .79-.407l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 8 10.5V8.614l-3.21 2.293A.5.5 0 0 1 4 10.5v-5a.5.5 0 0 1 .271-.445Z" />
-                </svg>
-              </button>
+              />
             </div>
           ))}
+        </div>
+        <div className="col justify-content-md-center m-5">
+          <PrevButton onPrevClick={handlePrevPage} />
+          <NextButton onNextClick={handleNextPage} />
         </div>
       </div>
     </div>

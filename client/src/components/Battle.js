@@ -93,8 +93,8 @@ export const Battle = ({
             </div>
           )}
 
-          <div class="row justify-content-md-center">
-            <div class="col-md-auto mt-5 pt-5">
+          <div className="row justify-content-md-center">
+            <div className="col-md-auto mt-5 pt-5">
               <button
                 className="btn btn-info w-auto"
                 onClick={handleEncounterEnd}
@@ -104,7 +104,7 @@ export const Battle = ({
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class="bi bi-skip-backward-circle"
+                  className="bi bi-skip-backward-circle"
                   viewBox="0 0 16 16"
                 >
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -167,7 +167,7 @@ export const Battle = ({
                   />
                 </div>
               </div>
-              <div id="opponent" class="col-md-auto m-5 p-5">
+              <div id="opponent" className="col-md-auto m-5 p-5">
                 <h2>Your opponent</h2>
                 <h4>
                   {CapitalizeFirstLetter(opponent.name)}
@@ -216,8 +216,8 @@ export const Battle = ({
                 </div>
               </div>
             </div>
-            <div class="row justify-content-md-center">
-              <div class="col-md-auto m-5 pt-5">
+            <div className="row justify-content-md-center">
+              <div className="col-md-auto m-5 pt-5">
                 <button className="btn btn-danger w-auto" onClick={handleHp}>
                   Start Battle
                 </button>

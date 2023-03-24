@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NoPokemonFound } from "./NoPokemonFound";
 import { PokemonFound } from "./PokemonFound";
+import { GetRandomItemFromArray } from "./functions/GetRandomItemFromArray";
 
 // starting pokemons
 const usersPokemon = [
@@ -31,17 +32,15 @@ export const PokemonData = ({ locationUrl, setEncounterEnded }) => {
         const locationResponse = await fetch(locationUrl);
         const locationData = await locationResponse.json();
         const areas = locationData.areas;
-        const randomIndexOfAreas = Math.floor(Math.random() * areas.length);
-        const areaUrl = areas[randomIndexOfAreas].url;
+        const randomAreas = GetRandomItemFromArray(areas);
+        const areaUrl = randomAreas.url;
         const areaResponse = await fetch(areaUrl);
         const areaData = await areaResponse.json();
         const pokemonEncounters = areaData.pokemon_encounters;
         if (pokemonEncounters.length > 0) {
-          const randomIndexOfPokemons = Math.floor(
-            Math.random() * pokemonEncounters.length
-          );
-          const pokemonUrl =
-            pokemonEncounters[randomIndexOfPokemons].pokemon.url;
+          const randomPokemonEncounter =
+            GetRandomItemFromArray(pokemonEncounters);
+          const pokemonUrl = randomPokemonEncounter.pokemon.url;
           setOpponentUrl(pokemonUrl);
           const pokemonResponse = await fetch(pokemonUrl);
           const pokemonData = await pokemonResponse.json();

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Battle } from "./Battle";
+import { CapitalizeFirstLetter } from "./functions/CapitalizeFirstLetter";
 
 let index = null;
 
@@ -40,8 +41,7 @@ export const PokemonFound = ({
                 {ourPokemons.map((ourPoke, i) => (
                   <div key={i} className="col-md-auto">
                     <h4>
-                      {ourPoke.name.charAt(0).toUpperCase() +
-                        ourPoke.name.slice(1)}
+                      {CapitalizeFirstLetter(ourPoke.name)}
                     </h4>
                     <button className="btn" onClick={() => choosePokemon(i)}>
                       <img
@@ -57,8 +57,7 @@ export const PokemonFound = ({
               <div className="row justify-content-md-center">
                 <div id="opponent" className="col-md-auto">
                   <h4>
-                    {pokemon.name.charAt(0).toUpperCase() +
-                      pokemon.name.slice(1)}
+                    {CapitalizeFirstLetter(pokemon.name)}
                   </h4>
                   <img src={pokemon.sprites.front_default} alt={pokemon.name} />
                   {/* <img src={pokemon.sprites.other.home.front_shiny} alt={pokemon.name} /> */}

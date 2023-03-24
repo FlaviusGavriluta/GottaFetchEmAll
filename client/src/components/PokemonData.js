@@ -15,15 +15,16 @@ export const PokemonData = ({ locationUrl, setEncounterEnded }) => {
   const [opponentUrl, setOpponentUrl] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPokemons = async () => {
       try {
         // set user's pokemons
-        let usersPokemons = [];
-        usersPokemon.map(async (pokeApi) => {
-          const pokeApiResponse = await fetch(pokeApi);
-          const pokeApiData = await pokeApiResponse.json();
-          usersPokemons.push(pokeApiData);
-        });
+        const usersPokemons = await Promise.all(
+          usersPokemon.map(async (pokeApi) => {
+            const pokeApiResponse = await fetch(pokeApi);
+            const pokeApiData = await pokeApiResponse.json();
+            return pokeApiData;
+          })
+        );
         setOurPokemons(usersPokemons);
 
         // set the adversary pokemon
@@ -49,10 +50,10 @@ export const PokemonData = ({ locationUrl, setEncounterEnded }) => {
           setPokemon("none");
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
-    fetchData();
+    fetchPokemons();
   }, []);
 
   const handleEncounterEnd = () => {

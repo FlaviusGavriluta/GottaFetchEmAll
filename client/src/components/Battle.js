@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CapitalizeFirstLetter } from "./functions/CapitalizeFirstLetter";
 
 export const Battle = ({
   myPokemon,
@@ -70,8 +71,7 @@ export const Battle = ({
                   <h1>You won!</h1>
                   <h2>You have captured:</h2>
                   <h4>
-                    {opponent.name.charAt(0).toUpperCase() +
-                      opponent.name.slice(1)}
+                    {CapitalizeFirstLetter(opponent.name)}
                   </h4>
                   <div>
                     <img
@@ -122,8 +122,7 @@ export const Battle = ({
               <div id="ourPoke" className="col-md-auto m-5 p-5">
                 <h2>Your Pokemon</h2>
                 <h4>
-                  {myPokemon.name.charAt(0).toUpperCase() +
-                    myPokemon.name.slice(1)}
+                  {CapitalizeFirstLetter(myPokemon.name)}
                 </h4>
 
                 {startBattle ? (
@@ -171,8 +170,7 @@ export const Battle = ({
               <div id="opponent" class="col-md-auto m-5 p-5">
                 <h2>Your opponent</h2>
                 <h4>
-                  {opponent.name.charAt(0).toUpperCase() +
-                    opponent.name.slice(1)}
+                  {CapitalizeFirstLetter(opponent.name)}
                 </h4>
 
                 {startBattle ? (

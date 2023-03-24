@@ -4,7 +4,7 @@ export const Locations = ({ onSelect }) => {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchLocations = async () => {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/location/");
         const data = await response.json();
@@ -13,7 +13,7 @@ export const Locations = ({ onSelect }) => {
         console.log(err);
       }
     };
-    fetchData();
+    fetchLocations();
   }, []);
 
   return (

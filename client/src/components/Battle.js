@@ -75,9 +75,9 @@ export const Battle = ({
                   </h4>
                   <div>
                     <img
-                      src={opponent.sprites.front_default}
-                      // src={opponent.sprites.other.home.front_shiny}
+                      src={opponent.sprites.other.home.front_shiny}
                       alt={opponent.name}
+                      className="w-50"
                     />
                   </div>
                 </div>

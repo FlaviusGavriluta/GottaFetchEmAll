@@ -36,31 +36,53 @@ export const PokemonFound = ({
         <div>
           <div id="ourPokemons">
             <div className="container text-center">
-              <h2>Choose your pokemon:</h2>
-              <div className="row justify-content-md-center mb-5 pb-5">
+              <h2>Choose your pokemon</h2>
+              <div className="row justify-content-md-center">
                 {ourPokemons.map((ourPoke, i) => (
-                  <div key={i} className="col-md-auto">
-                    <h4>
-                      {CapitalizeFirstLetter(ourPoke.name)}
-                    </h4>
-                    <button className="btn" onClick={() => choosePokemon(i)}>
-                      <img
-                        src={ourPoke.sprites.front_default}
-                        // src={ourPoke.sprites.other.home.front_shiny}
-                        alt={ourPoke.name}
-                      />
-                    </button>
+                  <div key={i} className="col-md-3">
+                    <div className="card w-75 mb-3">
+                      <div className="card-header bg-transparent">
+                        <h4 className="text-center">
+                          {CapitalizeFirstLetter(ourPoke.name)}
+                        </h4>
+                      </div>
+                      <div className="card-body">
+                        <div className="mx-auto text-center">
+                          <button
+                            className="btn"
+                            onClick={() => choosePokemon(i)}
+                          >
+                            <img
+                              src={ourPoke.sprites.other.home.front_shiny}
+                              alt={ourPoke.name}
+                              className="w-50"
+                            />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
-              <h2>Your opponent is:</h2>
-              <div className="row justify-content-md-center">
-                <div id="opponent" className="col-md-auto">
-                  <h4>
-                    {CapitalizeFirstLetter(pokemon.name)}
-                  </h4>
-                  <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-                  {/* <img src={pokemon.sprites.other.home.front_shiny} alt={pokemon.name} /> */}
+            </div>
+            <div className="row justify-content-md-center mb-5  text-center">
+              <h2>Your opponent</h2>
+              <div id="opponent" className="col-md-auto">
+                <div className="card text-center" style={{ width: "15rem" }}>
+                  <div className="card-header bg-transparent">
+                    <h4 className="text-center">
+                      {CapitalizeFirstLetter(pokemon.name)}
+                    </h4>
+                  </div>
+                  <div className="card-body">
+                    <div className="text-center">
+                      <img
+                        src={pokemon.sprites.other.home.front_shiny}
+                        alt={pokemon.name}
+                        className="w-25"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
